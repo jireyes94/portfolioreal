@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Syne:wght@800&display=swap');
+
+:root {
+    --bg-color: #0a0a0a;
+    --accent-cyan: #00f2ff;
+    --accent-purple: #7000ff;
+    --gray-standard: #e0e0e0;
+    --text-gray: #666;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    background-color: var(--gray-standard);
+}
+
+.layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 900px;
+    min-height: 100vh; /* min-height en lugar de height fijo */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra todo el bloque verticalmente */
+    align-items: center;
+    padding: 60px 0; 
+    box-sizing: border-box;
+    gap: 40px; /* Crea un espacio base entre título, menú y contacto */
+}
+
+.gray-layer { background-color: var(--gray-standard); color: var(--text-gray); z-index: 1; }
+
+.color-layer {
+    background-color: var(--bg-color);
+    color: white;
+    z-index: 2;
+    clip-path: inset(0 100% 0 0); 
+    pointer-events: none;
+}
+
+.color-layer h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    -webkit-background-clip: text;
+    background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 10px 0;
+}
+
+.description-text {
+    font-size: 1.1rem;
+    color: #888;
+    margin-bottom: 40px;
+}
+
+.manifesto-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+    /* Quitamos el flex-grow para que no empuje el contenido */
+}
+
+.nav-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: left;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.nav-number { font-size: 0.7rem; font-family: monospace; color: var(--accent-cyan); margin-top: 5px; }
+
+.nav-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin: 0;
+    transition: 0.3s;
+}
+
+.nav-desc {
+    max-width: 450px;
+    font-size: 0.9rem;
+    color: #666;
+    margin: 5px 0 0 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s;
+}
+
+.nav-item:hover { border-bottom-color: var(--accent-cyan); }
+.nav-item:hover .nav-title { transform: translateX(10px); color: white; }
+.nav-item:hover .nav-desc { opacity: 1; transform: translateY(0); }
+
+.contact-section {
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.contact-label { font-size: 0.8rem; font-family: monospace; color: #444; letter-spacing: 2px; }
+
+.contact-email {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+    letter-spacing: 1px;
+}
+
+.contact-email:hover { color: var(--accent-cyan); text-shadow: 0 0 10px var(--accent-cyan); }
+
+.nav-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+.nav-bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; filter: grayscale(100%) brightness(0.1); transition: 1s; }
+
+.nav-bg-img.active {
+    opacity: 0.3; 
+    filter: grayscale(100%) brightness(0.3);
+    transform: scale(1.05);
+}
+
+/* 3. Ajuste de la Capa Gris (Para que no se vea desparramada) */
+.gray-layer .content {
+    justify-content: center; /* Asegura que en la gris todo esté al centro */
+    gap: 20px; /* Menos espacio entre el H1 y el P en la versión aburrida */
+}
+
+/* 4. Ajuste del Título para que no pegue arriba */
+.reveal-item, .gray-text {
+    margin-top: 0;
+}
+
+.ui-controls { position: fixed; top: 40px; right: 40px; z-index: 100; display: flex; align-items: center; gap: 15px; }
+.switch { position: relative; display: inline-block; width: 46px; height: 20px; cursor: pointer; }
+.switch input { display: none; }
+.slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #444; transition: .4s; border-radius: 20px; }
+.slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--accent-cyan); }
+input:checked + .slider:before { transform: translateX(26px); }
+
+/* Media Query para Tablets y Celulares */
+@media (max-width: 768px) {
+    /* 1. Bajamos un poco más el contenido para que no choque con el switch */
+    .content {
+        padding-top: 100px;
+        gap: 20px;
+    }
+
+    /* 2. Reducimos el tamaño de los títulos */
+    .color-layer h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+    }
+
+    .gray-layer h1 {
+        font-size: 1.8rem;
+    }
+
+    /* 3. Ajustamos el manifiesto */
+    .manifesto-nav {
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+    .nav-item {
+        padding: 15px 0;
+    }
+
+    .nav-title {
+        font-size: 1.4rem;
+    }
+
+    /* En mobile, la descripción siempre visible o con menos opacidad 
+       ya que no hay hover real */
+    .nav-desc {
+        opacity: 0.8;
+        transform: translateY(0);
+        font-size: 0.85rem;
+    }
+
+    /* 4. Controles UI más pequeños */
+    .ui-controls {
+        top: 20px;
+        right: 20px;
+    }
+    
+    .switch-label {
+        font-size: 0.6rem;
+    }
+
+    /* 5. Ajuste del link de contacto */
+    .contact-email {
+        font-size: 1rem;
+    }
+}
+
+/* Ajuste extra para celulares muy pequeños (iPhone SE, etc.) */
+@media (max-width: 380px) {
+    .color-layer h1 {
+        font-size: 1.8rem;
+    }
+    .description-text {
+        font-size: 0.9rem;
+    }
+}
