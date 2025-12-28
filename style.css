@@ -6,8 +6,8 @@ html, body {
     padding: 0;
     width: 100%;
     max-width: 100vw;
-    overflow-x: hidden; /* Evita el sangrado lateral */
-    background-color: #0a0a0a; /* Fondo base oscuro para evitar franjas blancas */
+    overflow-x: hidden;
+    background-color: #0a0a0a;
     font-family: 'Inter', sans-serif;
 }
 
@@ -19,7 +19,6 @@ html, body {
     --text-gray: #666;
 }
 
-/* Solo bloqueamos el scroll en desktop */
 @media (min-width: 769px) {
     body { overflow: hidden; }
 }
@@ -27,10 +26,9 @@ html, body {
 /* 2. CAPAS Y CONTENEDORES */
 .layer {
     position: absolute;
-    top: 0; 
-    left: 0;
+    top: 0; left: 0;
     width: 100%; 
-    height: 100dvh; /* dvh para mobile */
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,7 +58,7 @@ html, body {
     z-index: 2;
     clip-path: inset(0 100% 0 0); 
     pointer-events: none;
-    width: 100%; /* Asegura cobertura total */
+    width: 100%;
 }
 
 /* 3. TÍTULOS Y TEXTOS */
@@ -83,7 +81,7 @@ html, body {
     margin-bottom: 20px;
 }
 
-/* 4. MANIFIESTO Y ANIMACIONES (RESTORED) */
+/* 4. MANIFIESTO Y ANIMACIONES */
 .manifesto-nav {
     width: 100%;
     display: flex;
@@ -122,37 +120,50 @@ html, body {
     transition: 0.3s;
 }
 
-/* Efectos Hover */
 .nav-item:hover { border-bottom-color: var(--accent-cyan); }
 .nav-item:hover .nav-title { transform: translateX(10px); color: white; }
 .nav-item:hover .nav-desc { opacity: 1; transform: translateY(0); }
 
-/* 5. CONTACTO Y BACKGROUNDS */
+/* 5. CONTACTO (ESTA SECCIÓN ES LA CLAVE) */
 .contact-section {
     width: 100%;
     padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
 }
 
-.contact-label { font-size: 0.8rem; font-family: monospace; color: #444; letter-spacing: 2px; }
+.contact-label { 
+    font-size: 0.7rem; 
+    font-family: monospace; 
+    color: #444; 
+    letter-spacing: 2px; 
+    display: block;
+    margin-bottom: 10px;
+}
 
 .contact-email {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    /* Reducimos un poco el tamaño en mobile para que el glitch no lo empuje */
+    font-size: clamp(0.8rem, 3.8vw, 1.2rem); 
     color: white;
     text-decoration: none;
     transition: 0.3s;
     letter-spacing: 1px;
+    display: block;
+    width: 100%;
+    /* PROHIBIMOS EL SALTO DE LÍNEA */
+    white-space: nowrap;
 }
 
 .contact-email:hover { color: var(--accent-cyan); text-shadow: 0 0 10px var(--accent-cyan); }
 
+/* 6. BACKGROUNDS E UI */
 .nav-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
 .nav-bg-img { 
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
     background-size: cover; background-position: center; 
     opacity: 0; filter: grayscale(100%) brightness(0.1); 
-    transition: 1s ease; /* Transición restaurada */
+    transition: 1s ease;
 }
 
 .nav-bg-img.active {
@@ -161,7 +172,6 @@ html, body {
     transform: scale(1.05);
 }
 
-/* 6. UI CONTROLS */
 .ui-controls { position: fixed; top: 40px; right: 40px; z-index: 100; display: flex; align-items: center; gap: 15px; }
 .switch { position: relative; display: inline-block; width: 46px; height: 20px; cursor: pointer; }
 .switch input { display: none; }
@@ -170,7 +180,7 @@ html, body {
 input:checked + .slider { background-color: var(--accent-cyan); }
 input:checked + .slider:before { transform: translateX(26px); }
 
-/* 7. MEDIA QUERIES (OPTIMIZADO PARA NO ROMPER NADA) */
+/* 7. MEDIA QUERIES */
 @media (max-width: 768px) {
     body { overflow-y: auto; }
     
@@ -191,4 +201,9 @@ input:checked + .slider:before { transform: translateX(26px); }
 
     .ui-controls { top: 20px; right: 20px; }
     .switch-label { font-size: 0.6rem; }
+
+    /* Forzamos que el texto de contacto sea una sola línea pase lo que pase */
+    .contact-email {
+        font-size: 3.5vw; /* Tamaño basado puramente en el ancho de pantalla */
+    }
 }

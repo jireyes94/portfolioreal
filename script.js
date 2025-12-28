@@ -86,7 +86,7 @@ navItems.forEach((item, index) => {
 });
 
 // 5. Decodificación de Email (Estabilizada)
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ@.";
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let interval = null;
 
 emailElement.addEventListener("mouseenter", (event) => {
@@ -100,14 +100,20 @@ emailElement.addEventListener("mouseenter", (event) => {
         event.target.innerText = originalText
             .split("")
             .map((letter, index) => {
-                if (index < iteration) return originalText[index];
+                // CORRECCIÓN: Si el caracter original es un espacio, mantenelo siempre
+                if (originalText[index] === " ") return " "; 
+
+                if (index < iteration) {
+                    return originalText[index];
+                }
+                
                 return letters[Math.floor(Math.random() * letters.length)];
             })
             .join("");
 
         if (iteration >= originalText.length) {
             clearInterval(interval);
-            event.target.innerText = originalText; // Asegura el final exacto
+            event.target.innerText = originalText;
         }
         
         if (trigger.checked && iteration % 2 === 0) playBeep(2000, 0.02, 0.01);
