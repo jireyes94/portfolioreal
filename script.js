@@ -26,7 +26,7 @@ function playBeep(freq, duration, vol) {
 const tl = gsap.timeline({ paused: true });
 
 tl.to(colorLayer, {
-    clipPath: "inset(0 0% 0 0)",
+    clipPath: "inset(0 0% 0 0)", // Al activarse, 0% de recorte en todos lados
     duration: 1.2,
     ease: "expo.inOut"
 })
