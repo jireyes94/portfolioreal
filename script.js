@@ -169,7 +169,7 @@ botInput.addEventListener('keypress', (e) => {
             userData.name = val;
             setTimeout(() => {
                 addMsg(`> ID_VERIFICADO: ${val.toUpperCase()}.`, 'bot-msg');
-                addMsg(`> INGRESA TU WHATSAPP O EMAIL PARA FINALIZAR EL REGISTRO:`, 'bot-msg');
+                addMsg(`> WHATSAPP O EMAIL DONDE CONTACTARNOS?:`, 'bot-msg');
                 step = 2;
             }, 600);
         } else if (step === 2) {
@@ -191,7 +191,6 @@ function addMsg(text, className) {
 // 3. ENVÍO AL BACKEND Y WHATSAPP (Punto 3 de tu pedido)
 async function sendToBackend() {
     inputArea.style.display = 'none';
-    addMsg('> SINCRONIZANDO CON EL SERVIDOR CENTRAL...', 'bot-msg');
 
     try {
         // Fetch a tu propia API en Vercel
@@ -199,7 +198,7 @@ async function sendToBackend() {
             method: "POST",
             body: JSON.stringify(userData)
         });
-        addMsg('> DATOS RESPALDADOS EXITOSAMENTE.', 'bot-msg');
+        addMsg('> NOS CONTACTAREMOS A LA MAYOR BREVEDAD.', 'bot-msg');
     } catch (err) {
         addMsg('> ERROR DE SINCRONIZACIÓN. CANAL DE RESPALDO ACTIVADO.', 'bot-msg');
     }
