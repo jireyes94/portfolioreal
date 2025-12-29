@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCVDEV | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="ui-controls">
+        <span class="switch-label" id="switch-text">¿ACTIVAR EXPERIENCIA?</span>
+        <label class="switch">
+            <input type="checkbox" id="toggle-trigger">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <section class="layer gray-layer">
+        <div class="content">
+            <p class="gray-text2">DCVDEV</p>
+            <h1 class="gray-text">¿SOLUCIONES DIGITALES ESTÁNDAR?</h1>
+            <p class="gray-text"><b>Para conocer el verdadero potencial de su negocio,</b>
+            por favor, utilice el interruptor superior.</p>
+        </div>
+    </section>
+
+    <section class="layer color-layer">
+        <div class="nav-bg-container">
+            <div class="nav-bg-img" id="bg-img-1" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80');"></div>
+
+            <div class="nav-bg-img" id="bg-img-2" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80');"></div>
+
+            <div class="nav-bg-img" id="bg-img-3" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80');"></div>
+        </div>
+
+        <div class="content">
+            <h1 class="reveal-item">SOLUCIONES DIGITALES.</h1>
+            <p class="reveal-item description-text">No construyo páginas, desarrollo experiencias que otros consideran imposibles. Estás viendo el futuro de tu marca.</p>
+            
+            <nav class="manifesto-nav reveal-item">
+                <div class="nav-item" data-bg="var(--accent-cyan)">
+                    <span class="nav-number">01</span>
+                    <div class="nav-content">
+                        <h2 class="nav-title">SOLUCIONES QUE NO FALLAN</h2>
+                        <p class="nav-desc">Herramientas robustas diseñadas para durar y crecer al ritmo de tus necesidades.</p>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-bg="var(--accent-purple)">
+                    <span class="nav-number">02</span>
+                    <div class="nav-content">
+                        <h2 class="nav-title">DISEÑO QUE SE SIENTE</h2>
+                        <p class="nav-desc">Interfaces donde cada interacción tiene sentido, logrando que navegar sea un placer.</p>
+                    </div>
+                </div>
+
+                <div class="nav-item" data-bg="#ffffff">
+                    <span class="nav-number">03</span>
+                    <div class="nav-content">
+                        <h2 class="nav-title">EL PRÓXIMO PASO</h2>
+                        <p class="nav-desc">Uso la tecnología para anticiparme a los problemas y preparar tu proyecto para el futuro.</p>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="contact-section reveal-item">
+                <span class="contact-label">// DISPONIBILIDAD ESTRATÉGICA</span>
+                <div class="contact-link-wrapper">
+                    <a href="#" class="contact-email" id="open-terminal" data-value="AGENDAR ENTREVISTA">AGENDAR ENTREVISTA</a>
+                </div>
+            </div>
+
+            <div id="modal-terminal" class="modal-overlay">
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="terminal-title">DCVDEV_OS: PROTOCOLO_DE_CONTACTO</span>
+                        <button id="close-terminal" class="terminal-close">×</button>
+                    </div>
+                    <div id="terminal-body" class="terminal-body">
+                        <div class="bot-msg" id="bot-question">> POR FAVOR, DIGAME SU NOMBRE.</div>
+                    </div>
+                    <div class="terminal-input-line" id="input-area">
+                        <span class="cursor">></span>
+                        <input type="text" id="bot-input" placeholder="Escribe aquí..." autocomplete="off">
+                    </div>
+                    <div id="whatsapp-trigger" class="wa-btn-container" style="display: none;">
+                        <a href="#" id="wa-link" target="_blank" class="wa-button">ABRIR CANAL DIRECTO (WHATSAPP)</a>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
