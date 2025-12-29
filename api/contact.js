@@ -10,8 +10,8 @@ export default async function handler(req, res) {
 
         // Envío de email profesional
         await resend.emails.send({
-            from: 'DCVDEV <onboarding@resend.dev>', // Luego puedes configurar tu propio dominio
-            to: ['ignacioreyeslima@gmail.com'], // <-- TU CORREO AQUÍ
+            from: 'onboarding@resend.dev', // Luego puedes configurar tu propio dominio
+            to: 'ignacioreyeslima@gmail.com', // <-- TU CORREO AQUÍ
             subject: '🚨 NUEVO LEAD DETECTADO: ' + name,
             html: `<strong>Nombre:</strong> ${name}<br><strong>Contacto:</strong> ${contact}`
         });
