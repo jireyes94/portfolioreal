@@ -50,13 +50,13 @@ trigger.addEventListener('change', () => {
         tl.play();
         label.innerText = "MODO CREATIVO";
         label.style.color = "#00f2ff";
-        playBeep(800, 0.1, 0.08);
+        playBeep(800, 0.1, 0.2);
     } else {
         colorLayer.style.pointerEvents = "none";
         tl.reverse();
         label.innerText = "ACTIVAR EXPERIENCIA?";
         label.style.color = "#888";
-        playBeep(300, 0.1, 0.08);
+        playBeep(300, 0.1, 0.2);
     }
 });
 
@@ -74,7 +74,7 @@ navItems.forEach((item, index) => {
     // Evento para PC
     item.addEventListener('mouseenter', () => {
         activateImage();
-        if (trigger.checked) playBeep(1200, 0.05, 0.02);
+        if (trigger.checked) playBeep(1200, 0.05, 0.1);
     });
 
     // Evento para Mobile (Click/Tap)
@@ -94,7 +94,7 @@ emailElement.addEventListener("mouseenter", (event) => {
     let iteration = 0;
     
     clearInterval(interval);
-    if (trigger.checked) playBeep(1500, 0.1, 0.03);
+    if (trigger.checked) playBeep(1500, 0.1, 0.1);
 
     interval = setInterval(() => {
         event.target.innerText = originalText
@@ -116,7 +116,7 @@ emailElement.addEventListener("mouseenter", (event) => {
             event.target.innerText = originalText;
         }
         
-        if (trigger.checked && iteration % 2 === 0) playBeep(2000, 0.02, 0.01);
+        if (trigger.checked && iteration % 2 === 0) playBeep(2000, 0.02, 0.08);
         iteration += 1 / 3;
     }, 30);
 });
@@ -151,7 +151,7 @@ openBtn.addEventListener('click', (e) => {
     resetTerminal(); // <-- Reset cada vez que se abre
     modal.style.display = 'flex';
     botInput.focus();
-    if (trigger.checked) playBeep(800, 0.1, 0.05);
+    if (trigger.checked) playBeep(800, 0.1, 0.1);
 });
 
 // Cerrar Modal
@@ -185,7 +185,7 @@ function addMsg(text, className) {
     div.innerText = text.startsWith('>') ? text : `> ${text}`;
     terminalBody.appendChild(div);
     terminalBody.scrollTop = terminalBody.scrollHeight;
-    if (trigger.checked) playBeep(1200, 0.05, 0.02);
+    if (trigger.checked) playBeep(1200, 0.05, 0.1);
 }
 
 // 3. ENVÍO AL BACKEND Y WHATSAPP (Punto 3 de tu pedido)
@@ -211,5 +211,5 @@ async function sendToBackend() {
     
     waTrigger.style.display = 'block';
     addMsg(`> CANAL DIRECTO HABILITADO.`, 'bot-msg');
-    if (trigger.checked) playBeep(2000, 0.2, 0.05);
+    if (trigger.checked) playBeep(2000, 0.2, 0.1);
 }
