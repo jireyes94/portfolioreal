@@ -46,12 +46,14 @@ tl.to(colorLayer, {
 // 3. Switch Logic
 trigger.addEventListener('change', () => {
     if (trigger.checked) {
+        document.body.classList.add('creative-active'); // <--- ESTA LÍNEA FALTA
         colorLayer.style.pointerEvents = "all";
         tl.play();
         label.innerText = "MODO CREATIVO";
         label.style.color = "#00f2ff";
         playBeep(800, 0.1, 0.2);
     } else {
+        document.body.classList.remove('creative-active'); // <--- PARA REVERTIR
         colorLayer.style.pointerEvents = "none";
         tl.reverse();
         label.innerText = "ACTIVAR EXPERIENCIA?";
@@ -60,28 +62,36 @@ trigger.addEventListener('change', () => {
     }
 });
 
-// 4. Menu & Hover Logic
+// 4. Menu & Hover Logic (CORREGIDO PARA MOBILE)
 navItems.forEach((item, index) => {
-    // Función para activar imagen
-    const activateImage = () => {
-        if (trigger.checked) {
-            const targetImg = document.getElementById(`bg-img-${index + 1}`);
-            document.querySelectorAll('.nav-bg-img').forEach(img => img.classList.remove('active'));
-            if(targetImg) targetImg.classList.add('active');
-        }
+    const activateItem = () => {
+        if (!trigger.checked) return;
+        
+        // Desactivar otros
+        navItems.forEach(i => i.classList.remove('active-mobile'));
+        document.querySelectorAll('.nav-bg-img').forEach(img => img.classList.remove('active'));
+        
+        // Activar actual
+        item.classList.add('active-mobile');
+        const targetImg = document.getElementById(`bg-img-${index + 1}`);
+        if(targetImg) targetImg.classList.add('active');
+        
+        playBeep(1200, 0.05, 0.1);
     };
 
-    // Evento para PC
-    item.addEventListener('mouseenter', () => {
-        activateImage();
-        if (trigger.checked) playBeep(1200, 0.05, 0.1);
+    item.addEventListener('mouseenter', activateItem);
+
+    item.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+            activateItem();
+        }
     });
 
-    // Evento para Mobile (Click/Tap)
-    item.addEventListener('click', activateImage);
-
     item.addEventListener('mouseleave', () => {
-        document.querySelectorAll('.nav-bg-img').forEach(img => img.classList.remove('active'));
+        // Solo removemos si no es mobile, para que el click persista
+        if (window.innerWidth > 768) {
+            document.querySelectorAll('.nav-bg-img').forEach(img => img.classList.remove('active'));
+        }
     });
 });
 
@@ -89,36 +99,28 @@ navItems.forEach((item, index) => {
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let interval = null;
 
-emailElement.addEventListener("mouseenter", (event) => {
-    const originalText = event.target.dataset.value;
-    let iteration = 0;
-    
-    clearInterval(interval);
-    if (trigger.checked) playBeep(1500, 0.1, 0.1);
-
-    interval = setInterval(() => {
-        event.target.innerText = originalText
-            .split("")
-            .map((letter, index) => {
-                // CORRECCIÓN: Si el caracter original es un espacio, mantenelo siempre
-                if (originalText[index] === " ") return " "; 
-
-                if (index < iteration) {
-                    return originalText[index];
-                }
-                
-                return letters[Math.floor(Math.random() * letters.length)];
-            })
-            .join("");
-
-        if (iteration >= originalText.length) {
-            clearInterval(interval);
-            event.target.innerText = originalText;
-        }
+document.querySelectorAll(".contact-email, .sidebar-link").forEach(el => {
+    el.addEventListener("mouseenter", (event) => {
+        const originalText = event.target.dataset.value;
+        let iteration = 0;
         
-        if (trigger.checked && iteration % 2 === 0) playBeep(2000, 0.02, 0.08);
-        iteration += 1 / 3;
-    }, 30);
+        clearInterval(interval);
+        if (trigger.checked) playBeep(1500, 0.1, 0.1);
+
+        interval = setInterval(() => {
+            event.target.innerText = originalText
+                .split("")
+                .map((letter, index) => {
+                    if (originalText[index] === " ") return " "; 
+                    if (index < iteration) return originalText[index];
+                    return letters[Math.floor(Math.random() * letters.length)];
+                })
+                .join("");
+
+            if (iteration >= originalText.length) clearInterval(interval);
+            iteration += 1 / 3;
+        }, 30);
+    });
 });
 
 // Lógica de la Terminal Emergente Mejorada
@@ -212,3 +214,44 @@ async function sendToBackend() {
     addMsg(`> CANAL DIRECTO HABILITADO.`, 'bot-msg');
     if (trigger.checked) playBeep(2000, 0.2, 0.1);
 }
+
+// 1. DATA DE PROYECTOS (Aquí agregas lo que quieras)
+const myProjects = [
+    { name: "NOTYPE.LABS", img: "img/notypelabs.jpg", url: "https://notypelabs.vercel.app" }
+];
+
+// 2. SELECTORES
+const projectModal = document.getElementById('modal-projects');
+const openProjectsBtn = document.getElementById('open-projects');
+const closeProjectsBtn = document.getElementById('close-projects');
+const projectsContainer = document.getElementById('projects-container');
+
+// 3. RENDERIZADO TIPO COMPONENTE
+function renderProjects() {
+    projectsContainer.innerHTML = myProjects.map(project => `
+        <div class="project-card">
+            <div class="project-img" style="background-image: url('${project.img}')"></div>
+            <div class="project-info">
+                <h3>${project.name}</h3>
+            </div>
+            <a href="${project.url}" target="_blank" class="project-link">VISITAR SITIO</a>
+        </div>
+    `).join('');
+}
+
+// 4. EVENTOS
+openProjectsBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    renderProjects();
+    projectModal.style.display = 'flex';
+    if (trigger.checked) playBeep(800, 0.1, 0.2); // Usando tu volumen mejorado
+});
+
+closeProjectsBtn.addEventListener('click', () => {
+    projectModal.style.display = 'none';
+});
+
+// Cerrar al clickear fuera
+window.addEventListener('click', (e) => {
+    if (e.target == projectModal) projectModal.style.display = "none";
+});

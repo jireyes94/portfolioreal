@@ -8,20 +8,21 @@
 </head>
 <body>
 
-    <div class="ui-controls">
-        <span class="switch-label" id="switch-text">¿ACTIVAR EXPERIENCIA?</span>
-        <label class="switch">
-            <input type="checkbox" id="toggle-trigger">
-            <span class="slider"></span>
-        </label>
-    </div>
-
     <section class="layer gray-layer">
         <div class="content">
             <p class="gray-text2">DCVDEV</p>
-            <h1 class="gray-text">¿SOLUCIONES DIGITALES ESTÁNDAR?</h1>
-            <p class="gray-text"><b>Para conocer el verdadero potencial de su negocio,</b>
-            por favor, utilice el interruptor superior.</p>
+            <h1 class="gray-text">¿SU PRESENCIA DIGITAL ES "OBSOLETA"?</h1>
+
+            <div class="central-cta">
+                <span class="switch-label" id="switch-text">MEJORE SU EXPERIENCIA</span>
+                <label class="switch-premium">
+                    <input type="checkbox" id="toggle-trigger">
+                    <span class="slider-premium"></span>
+                </label>
+            </div>
+
+            <p class="gray-text">Para conocer el verdadero potencial de su negocio
+            <b>utilice el interruptor.</b></p>
         </div>
     </section>
 
@@ -42,7 +43,7 @@
                 <div class="nav-item" data-bg="var(--accent-cyan)">
                     <span class="nav-number">01</span>
                     <div class="nav-content">
-                        <h2 class="nav-title">SOLUCIONES QUE NO FALLAN</h2>
+                        <h2 class="nav-title">SOLUCIONES DIRECTAS</h2>
                         <p class="nav-desc">Herramientas robustas diseñadas para durar y crecer al ritmo de tus necesidades.</p>
                     </div>
                 </div>
@@ -70,6 +71,17 @@
                     <a href="#" class="contact-email" id="open-terminal" data-value="AGENDAR ENTREVISTA">AGENDAR ENTREVISTA</a>
                 </div>
             </div>
+            
+            <div id="modal-projects" class="modal-overlay">
+                <div class="terminal-container project-modal">
+                    <div class="terminal-header">
+                        <span class="terminal-title">DCVDEV_OS: EXPLORADOR_DE_PROYECTOS</span>
+                        <button id="close-projects" class="terminal-close">×</button>
+                    </div>
+                    <div class="projects-grid" id="projects-container">
+                        </div>
+                </div>
+            </div>
 
             <div id="modal-terminal" class="modal-overlay">
                 <div class="terminal-container">
@@ -92,7 +104,12 @@
         </div>    
     </section>
 
+    <div class="sidebar-projects">
+        <a href="#" id="open-projects" class="sidebar-link" data-value="EXPLORAR PROYECTOS">EXPLORAR PROYECTOS</a>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="script.js"></script>
+
 </body>
 </html>
