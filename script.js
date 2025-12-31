@@ -193,25 +193,36 @@ function addMsg(text, className) {
 // 3. ENVÍO AL BACKEND Y WHATSAPP (Punto 3 de tu pedido)
 async function sendToBackend() {
     inputArea.style.display = 'none';
+    addMsg('> INICIANDO TRANSMISIÓN DE DATOS...', 'bot-msg');
 
     try {
-        // Fetch a tu propia API en Vercel
-        await fetch("/api/contact", {
+        // Apuntamos a la ruta donde tienes tu archivo: /api/contact
+        const response = await fetch("/api/contact", {
             method: "POST",
-            body: JSON.stringify(userData)
+            body: JSON.stringify({
+                name: userData.name,
+                contact: userData.contact
+            })
         });
-        addMsg('> NOS CONTACTAREMOS A LA MAYOR BREVEDAD.', 'bot-msg');
+
+        if (response.ok) {
+            addMsg('> DATOS SINCRONIZADOS CON ÉXITO.', 'bot-msg');
+            addMsg('> EL DESTINATARIO HA SIDO NOTIFICADO.', 'bot-msg');
+        } else {
+            throw new Error("Falla en servidor");
+        }
     } catch (err) {
-        addMsg('> ERROR DE SINCRONIZACIÓN. CANAL DE RESPALDO ACTIVADO.', 'bot-msg');
+        // Si falla el envío por mail, avisamos que usamos el canal de respaldo
+        addMsg('> ERROR EN PROTOCOLO SMTP. ACTIVANDO RESPALDO...', 'bot-msg');
     }
 
-    // Configurar el botón final de WhatsApp
+    // Configuración del botón de WhatsApp (Respaldo físico)
     const phone = "5492214379913"; 
-    const message = encodeURIComponent(`Hola DCVDEV, soy ${userData.name}. Mi contacto es ${userData.contact}. Vi tu portfolio y quiero hablar de un proyecto.`);
+    const message = encodeURIComponent(`Hola, soy ${userData.name}. Mi contacto es ${userData.contact}. Vi tu portfolio y quiero hablar de un proyecto.`);
     waLink.href = `https://wa.me/${phone}?text=${message}`;
     
     waTrigger.style.display = 'block';
-    addMsg(`> CANAL DIRECTO HABILITADO.`, 'bot-msg');
+    addMsg(`> CANAL DIRECTO (WHATSAPP) HABILITADO.`, 'bot-msg');
     if (trigger.checked) playBeep(2000, 0.2, 0.1);
 }
 
